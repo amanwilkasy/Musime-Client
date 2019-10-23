@@ -1,0 +1,266 @@
+<template>
+  <v-layout column justify-center align-center>
+    <!-- <v-sparkline
+      :value="value"
+      :gradient="gradient"
+      height="100"
+      stroke-linecap="round"
+      :smooth="radius || false"
+      :line-width="width"
+      :padding="padding"
+      auto-draw
+    >
+      <template v-slot:label="item">${{ item.value }}</template>
+    </v-sparkline>
+    <v-card class="mx-auto"></v-card>-->
+    <GChart
+      type="Histogram"
+      :data="popularity"
+      :options="chartOptions"
+      style="width: 700px; height: 300px;"
+    />
+
+    <GChart
+      type="Histogram"
+      :data="popularitya"
+      :options="chartOptions"
+      :resizeDebounce="500"
+      style="width: 450px; height: 250px;"
+    />
+
+    <!-- <GChart
+      type="Histogram"
+      :data="danceability"
+      :options="chartOptions"
+      :resizeDebounce="500"
+      style="width: 450px; height: 250px;"
+    />
+    <GChart
+      type="Histogram"
+      :data="durationMs"
+      :options="chartOptions"
+      :resizeDebounce="500"
+      style="width: 450px; height: 250px;"
+    />
+    <GChart
+      type="Histogram"
+      :data="energy"
+      :options="chartOptions"
+      :resizeDebounce="500"
+      style="width: 450px; height: 250px;"
+    />
+    <GChart
+      type="Histogram"
+      :data="instrumentalness"
+      :options="chartOptions"
+      :resizeDebounce="500"
+      style="width: 450px; height: 250px;"
+    />
+    <GChart
+      type="Histogram"
+      :data="liveness"
+      :options="chartOptions"
+      :resizeDebounce="500"
+      style="width: 450px; height: 250px;"
+    />
+    <GChart
+      type="Histogram"
+      :data="loudness"
+      :options="chartOptions"
+      :resizeDebounce="500"
+      style="width: 450px; height: 250px;"
+    />
+    <GChart
+      type="Histogram"
+      :data="speechiness"
+      :options="chartOptions"
+      :resizeDebounce="500"
+      style="width: 450px; height: 250px;"
+    />
+    <GChart
+      type="Histogram"
+      :data="tempo"
+      :options="chartOptions"
+      :resizeDebounce="500"
+      style="width: 450px; height: 250px;"
+    />
+    <GChart
+      type="Histogram"
+      :data="timeSignature"
+      :options="chartOptions"
+      :resizeDebounce="500"
+      style="width: 450px; height: 250px;"
+    />
+    <GChart
+      type="Histogram"
+      :data="valence"
+      :options="chartOptions"
+      :resizeDebounce="500"
+      style="width: 450px; height: 250px;"
+    />
+    <GChart
+      type="Histogram"
+      :data="mode"
+      :options="chartOptions"
+      :resizeDebounce="500"
+      style="width: 450px; height: 250px;"
+    />-->
+  </v-layout>
+</template>
+
+<script>
+import Logo from "~/components/Logo.vue";
+import VuetifyLogo from "~/components/VuetifyLogo.vue";
+const gradients = [
+  ["#222"],
+  ["#42b3f4"],
+  ["red", "orange", "yellow"],
+  ["purple", "violet"],
+  ["#00c6ff", "#F0F", "#FF0"],
+  ["#f72047", "#ffd200", "#1feaea"]
+];
+
+const features = require("~/static/allaudiofeatures.json");
+
+import { GChart } from "vue-google-charts";
+
+export default {
+  data: () => ({
+    value: [423, 446, 675, 510, 590, 610, 760],
+    gradient: gradients[4],
+    width: 2,
+    gradient: gradients[4],
+    gradients,
+    padding: 0.5,
+    radius: 0.5,
+    chartOptions: {
+      colors: ["black"],
+      legend: "top",
+      title: "some title",
+      subtitle: "sub"
+    },
+    popularity: [["Popularity"]],
+    popularitya: [],
+    acousticness: [["acousticness"]],
+    danceability: [["danceability"]],
+    durationMs: [["durationMs"]],
+    energy: [["Energy"]],
+    instrumentalness: [["instrumentalness"]],
+    liveness: [["liveness"]],
+    loudness: [["loudness"]],
+    speechiness: [["speechiness"]],
+    tempo: [["tempo"]],
+    timeSignature: [["timeSignature"]],
+    valence: [["valence"]],
+    mode: [["mode"]]
+  }),
+  created() {
+    features.forEach(element => {
+      this.popularity.push([element.popularity]);
+      this.popularitya.push([element.popularity]);
+      this.acousticness.push([element.acousticness]);
+      this.danceability.push([element.danceability]);
+      this.durationMs.push([element.durationMs]);
+      this.energy.push([element.energy]);
+      this.instrumentalness.push([element.instrumentalness]);
+      this.liveness.push([element.liveness]);
+      this.loudness.push([element.loudness]);
+      this.speechiness.push([element.speechiness]);
+      this.tempo.push([element.tempo]);
+      this.timeSignature.push([element.timeSignature]);
+      this.valence.push([element.valence]);
+      if (element.mode === "MAJOR") {
+        this.mode.push([1]);
+      } else {
+        this.mode.push([0]);
+      }
+    });
+
+    var batch = [];
+    var temp = [];
+    var count = 0;
+    //["Popularitya"]
+
+    for (let index = 0; index < this.popularitya.length; index++) {
+      temp.push(this.popularitya[index]);
+
+      if (index % 100 === 0) {
+        // let average = array => array.reduce((a, b) => a + b) / array.length;
+        // console.log(average([1, 2, 3, 4, 5]));
+
+        let sum = temp.reduce((previous, current) => (current += previous));
+        batch.push([sum / temp.length]);
+        temp = [];
+      }
+    }
+    batch.unshift(["Popularitya"]);
+
+    console.log(features.length);
+    this.popularitya = batch;
+  },
+  components: {
+    Logo,
+    VuetifyLogo,
+    GChart
+  },
+  methods: {
+    onChartReady(chart, google) {
+      const query = new google.visualization.data.group(
+        popularity,
+        [
+          {
+            column: 0,
+            label: "Month",
+            modifier: function(val) {
+              return formatDate.formatValue(val);
+            },
+            type: "string"
+          }
+        ],
+
+        // agg columns
+        [
+          {
+            aggregation: google.visualization.data.count,
+            column: 1,
+            label: "Tag Count",
+            type: "number"
+          }
+        ]
+      );
+    }
+  },
+  computed: {
+    hash: function(s) {
+      return s.split("").reduce(function(a, b) {
+        a = (a << 5) - a + b.charCodeAt(0);
+        return a & a;
+      }, 0);
+    }
+  }
+};
+</script>
+
+0
+10
+20
+30
+40
+50
+60
+70
+80
+90
+100
+
+ 10
+ 24
+ 36
+ 42
+ 47
+ 50
+ 54
+ 57
+ 60
+ 65
+ 74
