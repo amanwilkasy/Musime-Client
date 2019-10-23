@@ -1,6 +1,7 @@
 <template>
-  <v-container grid-list-lg fluid> 
-    <!-- <v-btn @click="getUserGraphFeatures">load graphs</v-btn> -->
+  <v-container grid-list-lg fluid>
+    <v-btn @click="getUserGraphFeatures">load graphs</v-btn>
+    <v-btn @click="checkIfGraphExists">check if you graph</v-btn>
 
     <v-layout row wrap>
       <v-flex lg12 md12 v-for="analyze in graph" :key="analyze.feature">
@@ -71,23 +72,23 @@ export default {
     lineCap: "round",
     gradient: gradients[5]
   }),
-  created() {
-    this.getUserGraphFeatures();
-  },
+  created() {},
   components: {},
   methods: {
     getUserGraphFeatures() {
       this.$axios
         .get(getUserGraphFeaturesUrl)
         .then(res => {
-          this.graph = res.data; 
+          this.graph = res.data;
         })
         .catch(error => console.log(error.message));
     },
     checkIfGraphExists() {
       this.$axios
         .get(checkHasFeatureGraphUrl)
-        .then(res => {})
+        .then(res => {
+          alert(res.data);
+        })
         .catch(error => console.log(error.message));
     }
   },
