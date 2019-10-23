@@ -28,7 +28,7 @@
 </template>
 
 <script>
-const base = "http://e520bd15.ngrok.io/";
+const base = "https://musime.herokuapp.com/";
 const api = base + "api/";
 const getUserGraphFeaturesUrl = api + "getUserGraphFeatures";
 const loginUrl = base + "spotify-auth/login";
@@ -41,7 +41,7 @@ export default {
         icon: "mdi-apps",
         title: "Home",
         to: "/"
-      }, 
+      },
       {
         icon: "mdi-view-dashboard",
         title: "Graphs",
@@ -68,7 +68,7 @@ export default {
             this.$store.commit("payload/setAuthenticated", true);
             this.$router.push("/graphs");
             successWindow.close();
-          }, 2000);
+          }, 1000);
         })
         .catch(error => console.log(error.message));
     }

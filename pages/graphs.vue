@@ -39,7 +39,7 @@
   </v-container>
 </template>
 <script>
-const base = "http://e520bd15.ngrok.io/";
+const base = "https://musime.herokuapp.com/";
 const api = base + "api/";
 const getUserGraphFeaturesUrl = api + "getUserGraphFeatures";
 const loginUrl = base + "spotify-auth/login";
