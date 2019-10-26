@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-lg fluid>
     <v-btn @click="getUserGraphFeatures">load graphs</v-btn>
-    <v-btn @click="checkIfGraphExists">check if you graph</v-btn>
+    <!-- <v-btn @click="checkIfGraphExists">check if you graph</v-btn> -->
 
     <v-layout row wrap>
       <v-flex lg12 md12 v-for="analyze in graph" :key="analyze.feature">
@@ -32,7 +32,8 @@
           </v-sheet>
 
           <v-card-text class="pt-0">
-            <div class="title font-weight-light mb-2">{{analyze.feature}}</div>
+            <div class="title font-weight-light mb-2">{{analyze.name}}</div>
+            <div class="title font-weight-light mb-2">{{analyze.description}}</div>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -42,9 +43,7 @@
 <script>
 const base = "https://musime.herokuapp.com/";
 const api = base + "api/";
-const getUserGraphFeaturesUrl = api + "getUserGraphFeatures";
-const loginUrl = base + "spotify-auth/login";
-const checkHasFeatureGraphUrl = api + "checkIfGraphExists";
+const getUserGraphFeaturesUrl = api + "getFeaturesGraphs";
 
 const gradients = [
   ["#222"],
@@ -79,15 +78,7 @@ export default {
       this.$axios
         .get(getUserGraphFeaturesUrl)
         .then(res => {
-          this.graph = res.data;
-        })
-        .catch(error => console.log(error.message));
-    },
-    checkIfGraphExists() {
-      this.$axios
-        .get(checkHasFeatureGraphUrl)
-        .then(res => {
-          alert(res.data);
+          this.graph = res.data.featuresGraphs;
         })
         .catch(error => console.log(error.message));
     }

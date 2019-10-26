@@ -28,11 +28,8 @@
 </template>
 
 <script>
-const base = "https://musime.herokuapp.com/";
-const api = base + "api/";
-const getUserGraphFeaturesUrl = api + "getUserGraphFeatures";
-const loginUrl = base + "spotify-auth/login";
-const checkHasFeatureGraphUrl = api + "checkIfGraphExists";
+const base = "https://musime.herokuapp.com/"; 
+const loginUrl = base + "spotify-auth/login"; 
 export default {
   name: "Navigation",
   data: () => ({
@@ -64,11 +61,12 @@ export default {
         .get(loginUrl)
         .then(res => {
           var successWindow = window.open(res.data, "_blank");
-          setTimeout(() => {
-            this.$store.commit("payload/setAuthenticated", true);
+           this.$store.commit("payload/setAuthenticated", true);
             this.$router.push("/graphs");
-            successWindow.close();
-          }, 1000);
+          // setTimeout(() => {
+           
+          //   // successWindow.close();
+          // }, 4000);
         })
         .catch(error => console.log(error.message));
     }
