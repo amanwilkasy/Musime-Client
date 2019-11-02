@@ -93,6 +93,8 @@
         }),
         created() {
             this.getUserGraphFeatures();
+            // this.$store.commit("payload/setAuthenticated", true);
+            // this.$router.push("/graphs");
         },
         components: {},
         methods: {

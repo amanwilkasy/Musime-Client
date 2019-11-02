@@ -73,24 +73,7 @@
                 this.$axios
                     .get(loginUrl)
                     .then(res => {
-                        this.$axios
-                            .post(openUrl, res.data)
-                            .then(some => {
-                                    this.$store.commit("payload/setAuthenticated", true);
-                                    this.$router.push("/graphs");
-                                console.log(some.data);
-                            })
-                            .catch(error => console.log(error.message))
-                        // window.location.ref(res.data);
-                        // window.open(res.data);
-                        // setTimeout(() => {
-                        //     // history.back();
-                        //     window.location.ref(res.data);
-                        //     // history.go(-1)
-                        //     // this.$store.commit("payload/setAuthenticated", true);
-                        //     // this.$router.push("/graphs");
-                        // }, 2000);
-
+                        window.location.replace(res.data)
                     })
                     .catch(error => console.log(error.message));
             }
