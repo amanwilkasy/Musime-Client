@@ -41,6 +41,7 @@
 <script>
     const base = "https://musime.herokuapp.com/";
     const loginUrl = base + "spotify-auth/login";
+    const openUrl = base + "spotify-auth/open";
     export default {
         name: "Navigation",
         data: () => ({
@@ -72,8 +73,16 @@
                 this.$axios
                     .get(loginUrl)
                     .then(res => {
+                        this.$axios
+                            .post(openUrl, res.data)
+                            .then(some => {
+                                    this.$store.commit("payload/setAuthenticated", true);
+                                    this.$router.push("/graphs");
+                                console.log(some.data);
+                            })
+                            .catch(error => console.log(error.message))
                         // window.location.ref(res.data);
-                        window.open(res.data);
+                        // window.open(res.data);
                         // setTimeout(() => {
                         //     // history.back();
                         //     window.location.ref(res.data);
