@@ -60,11 +60,13 @@
                 this.$axios
                     .get(loginUrl)
                     .then(res => {
-                        this.$axios
-                            .get(res.data).then(suc => {
-                            this.$store.commit("payload/setAuthenticated", true);
-                            this.$router.push("/graphs");
-                        }).catch(error => console.log(error.message));
+
+                        window.location.replace(res.data);
+
+                        history.go(-1);
+                        this.$store.commit("payload/setAuthenticated", true);
+                        this.$router.push("/graphs");
+
                     })
                     .catch(error => console.log(error.message));
             }
