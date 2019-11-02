@@ -1,4 +1,4 @@
-export default function ({store, redirect, query, route}) {
+export default function ({store, redirect, query}) {
   const token = store.state.payload.token;
   const loginSuccess = query.success;
   if (loginSuccess) {

@@ -41,7 +41,6 @@
 <script>
     const base = "https://musime.herokuapp.com/";
     const loginUrl = base + "spotify-auth/login";
-    const openUrl = base + "spotify-auth/open";
     export default {
         name: "Navigation",
         data: () => ({
@@ -81,10 +80,8 @@
         computed: {
             authenticated() {
                 const token = this.$store.state.payload.token;
-                if (token) {
-                    return true;
-                }
-                return false;
+                return !!token;
+
             }
         }
     };
