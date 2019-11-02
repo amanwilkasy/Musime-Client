@@ -1,6 +1,5 @@
 <template>
   <v-container grid-list-lg fluid>
-<!--    <v-btn @click="getUserGraphFeatures">load graphs</v-btn>-->
     <v-layout row wrap>
       <v-flex lg12 md12>
         <v-card>
@@ -104,7 +103,7 @@
                       if (res.data.processState === "PROCESSING"){
                           alert("You're music analysis is under way");
                       }else{
-                          this.graph = normalizeFeatureGraph(res.data.featuresGraphs);
+                          this.graph = this.normalizeFeatureGraph(res.data.featuresGraphs);
                       }
                   })
                   .catch(error => console.log(error.message));
