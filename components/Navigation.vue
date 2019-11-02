@@ -59,7 +59,7 @@
             clipped: false,
             drawer: false,
             miniVariant: false,
-            // image: require('~/assets/spotifyIcon.png'),
+            image: require('~/assets/spotifyIcon.png'),
             title: "Musime"
         }),
         methods: {
@@ -72,10 +72,16 @@
                 this.$axios
                     .get(loginUrl)
                     .then(res => {
-                        window.location.replace(res.data);
-                        history.go(-1);
-                        this.$store.commit("payload/setAuthenticated", true);
-                        this.$router.push("/graphs");
+                        // window.location.ref(res.data);
+                        window.open(res.data);
+                        // setTimeout(() => {
+                        //     // history.back();
+                        //     window.location.ref(res.data);
+                        //     // history.go(-1)
+                        //     // this.$store.commit("payload/setAuthenticated", true);
+                        //     // this.$router.push("/graphs");
+                        // }, 2000);
+
                     })
                     .catch(error => console.log(error.message));
             }
