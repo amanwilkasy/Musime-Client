@@ -101,7 +101,7 @@
                   .get(getUserGraphFeaturesUrl)
                   .then(res => {
                       if (res.data.processState === "PROCESSING"){
-                          alert("You're music analysis is under way");
+                          alert("Your music analysis is under way");
                       }else{
                           this.graph = this.normalizeFeatureGraph(res.data.featuresGraphs);
                       }
