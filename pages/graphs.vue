@@ -78,7 +78,7 @@
         middleware: "authenticated",
         data: () => ({
             graph: [],
-            legend: "Popularity",
+            legend: "Legend",
             gradientDirection: "top",
             gradients,
             fill: true,

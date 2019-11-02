@@ -20,7 +20,18 @@
       <div class="text-center">
         <v-btn v-if="authenticated" @click="signOut">Sign Out</v-btn>
         <div v-else>
-          <v-btn @click="signIn">Sign In</v-btn>
+
+          <v-btn @click="signIn">
+            Sign In
+          </v-btn>
+
+          <v-btn @click="signIn" icon>
+            <v-avatar>
+              <img :src="image" alt="spotify logo">
+            </v-avatar>
+          </v-btn>
+
+
         </div>
       </div>
     </v-app-bar>
@@ -48,6 +59,7 @@
             clipped: false,
             drawer: false,
             miniVariant: false,
+            // image: require('~/assets/spotifyIcon.png'),
             title: "Musime"
         }),
         methods: {
@@ -60,13 +72,10 @@
                 this.$axios
                     .get(loginUrl)
                     .then(res => {
-
                         window.location.replace(res.data);
-
                         history.go(-1);
                         this.$store.commit("payload/setAuthenticated", true);
                         this.$router.push("/graphs");
-
                     })
                     .catch(error => console.log(error.message));
             }

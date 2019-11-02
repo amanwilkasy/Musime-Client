@@ -29,7 +29,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
- plugins: [ 
+ plugins: [
   { src: '~/plugins/localStorage.js', ssr: false }
 ],
   /*
@@ -58,7 +58,7 @@ module.exports = {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: false,
+      dark: true,
       themes: {
         dark: {
           primary: colors.blue.darken2,

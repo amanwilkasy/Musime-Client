@@ -1,8 +1,8 @@
-<template> 
+<template>
   <v-app>
     <Navigation />
     <v-content>
-      <v-container>
+      <v-container fluid>
         <nuxt />
       </v-container>
     </v-content>
@@ -10,7 +10,7 @@
   </v-app>
 </template>
 
-<script> 
+<script>
 export default {
   data: () => ({}),
   components: {
